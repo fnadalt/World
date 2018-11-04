@@ -1,0 +1,6 @@
+<material>
+	<technique name="Techniques/Diff.xml"/>
+	<texture name="Textures/Stick.png" unit="diffuse"/>
+	<parameter name="MatDiffColor" value="0.143602 0.242558 0.112095 1"/>
+	<parameter name="MatSpecColor" value="0 0 0 50"/>
+</material>

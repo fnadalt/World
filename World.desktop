@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=World
+Comment=Virtual world
+Path=/home/flaco/urho3d/world
+Exec=/bin/bash /home/flaco/urho3d/world/World.sh
+Icon=/home/flaco/urho3d/world/World.png
+Terminal=true
+Categories=Game

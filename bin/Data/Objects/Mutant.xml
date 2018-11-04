@@ -1,0 +1,387 @@
+<?xml version="1.0"?>
+<node id="36">
+	<attribute name="Is Enabled" value="true" />
+	<attribute name="Name" value="Mutant" />
+	<attribute name="Tags">
+		<string value="Pickable" />
+		<string value="Character" />
+	</attribute>
+	<attribute name="Position" value="41.6533 19.3076 35.314" />
+	<attribute name="Rotation" value="1 0 0 0" />
+	<attribute name="Scale" value="1 1 1" />
+	<attribute name="Variables">
+		<variant hash="838874785" type="None" value="" />
+		<variant hash="1006005327" type="Float" value="0" />
+		<variant hash="104287744" type="Float" value="0" />
+	</attribute>
+	<component type="ScriptInstance" id="16794997">
+		<attribute name="Delayed Method Calls" value="0" />
+		<attribute name="Script File" value="ScriptFile;Scripts/Character.as" />
+		<attribute name="Class Name" value="Character" />
+		<attribute name="Script Data" value="0 0 0 0 0 0 0 0" />
+		<attribute name="body" value="16795153" />
+		<attribute name="animCtrl" value="51" />
+	</component>
+	<component type="RigidBody" id="16795153">
+		<attribute name="Physics Position" value="41.6533 19.3076 35.314" />
+		<attribute name="Mass" value="1" />
+		<attribute name="Friction" value="1" />
+		<attribute name="Linear Velocity" value="4.36351e-06 2.18153e-05 2.18175e-06" />
+		<attribute name="Angular Factor" value="0 0 0" />
+		<attribute name="Collision Event Mode" value="Always" />
+	</component>
+	<component type="CollisionShape" id="16795154">
+		<attribute name="Shape Type" value="Capsule" />
+		<attribute name="Size" value="0.7 1.8 0.7" />
+		<attribute name="Offset Position" value="0 0.9 -0.2" />
+	</component>
+	<node id="29">
+		<attribute name="Is Enabled" value="true" />
+		<attribute name="Name" value="Model" />
+		<attribute name="Tags" />
+		<attribute name="Position" value="0 0 -0.4" />
+		<attribute name="Rotation" value="-4.37114e-08 0 1 -0" />
+		<attribute name="Scale" value="1 1 1" />
+		<attribute name="Variables">
+			<variant hash="1732818812" type="String" value="Mutant" />
+		</attribute>
+		<component type="AnimatedModel" id="49">
+			<attribute name="Model" value="Model;Models/Mutant/Mutant.mdl" />
+			<attribute name="Material" value="Material;Models/Mutant/Materials/mutant_M.xml" />
+			<attribute name="Cast Shadows" value="true" />
+			<attribute name="Bone Animation Enabled">
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+				<variant type="Bool" value="true" />
+			</attribute>
+			<attribute name="Animation States">
+				<variant type="Int" value="1" />
+				<variant type="ResourceRef" value="Animation;Models/Mutant/Mutant_Idle0.ani" />
+				<variant type="String" value="Mutant:Hips" />
+				<variant type="Bool" value="true" />
+				<variant type="Float" value="1" />
+				<variant type="Float" value="2.73959" />
+				<variant type="Int" value="0" />
+			</attribute>
+		</component>
+		<component type="AnimationController" id="51">
+			<attribute name="Animations">
+				<variant type="String" value="Models/Mutant/Mutant_Idle0.ani" />
+				<variant type="Float" value="1" />
+				<variant type="Float" value="1" />
+				<variant type="Float" value="0.2" />
+				<variant type="Float" value="0" />
+			</attribute>
+			<attribute name="Node Animation States">
+				<variant type="Int" value="0" />
+			</attribute>
+		</component>
+		<node id="16794979">
+			<attribute name="Is Enabled" value="true" />
+			<attribute name="Name" value="Mutant:Hips" />
+			<attribute name="Tags" />
+			<attribute name="Position" value="0.00308661 0.752019 -0.0105286" />
+			<attribute name="Rotation" value="0.999905 0.00606712 -0.000437326 -0.0123623" />
+			<attribute name="Scale" value="0.01 0.01 0.01" />
+			<attribute name="Variables" />
+			<node id="16794980">
+				<attribute name="Is Enabled" value="true" />
+				<attribute name="Name" value="Mutant:Spine" />
+				<attribute name="Tags" />
+				<attribute name="Position" value="-2.9976e-15 10.7639 -1.24352" />
+				<attribute name="Rotation" value="0.990066 -0.140534 -0.00169615 0.00405279" />
+				<attribute name="Scale" value="1 1 1" />
+				<attribute name="Variables" />
+				<node id="16794981">
+					<attribute name="Is Enabled" value="true" />
+					<attribute name="Name" value="Mutant:Spine1" />
+					<attribute name="Tags" />
+					<attribute name="Position" value="-0.0189266 13.0613 -0.227481" />
+					<attribute name="Rotation" value="0.985714 -0.168136 -0.00309989 0.00942866" />
+					<attribute name="Scale" value="1 1 1" />
+					<attribute name="Variables" />
+					<node id="16794982">
+						<attribute name="Is Enabled" value="true" />
+						<attribute name="Name" value="Mutant:Spine2" />
+						<attribute name="Tags" />
+						<attribute name="Position" value="-0.0216304 12.9882 0.916687" />
+						<attribute name="Rotation" value="0.995192 -0.0974815 -0.00261265 0.00910159" />
+						<attribute name="Scale" value="1 1 1" />
+						<attribute name="Variables" />
+						<node id="16794983">
+							<attribute name="Is Enabled" value="true" />
+							<attribute name="Name" value="Mutant:Neck" />
+							<attribute name="Tags" />
+							<attribute name="Position" value="-0.0119271 24.6707 -2.0281" />
+							<attribute name="Rotation" value="0.999919 -0.00699022 0.00859449 0.00622476" />
+							<attribute name="Scale" value="1 1 1" />
+							<attribute name="Variables" />
+							<node id="16794984">
+								<attribute name="Is Enabled" value="true" />
+								<attribute name="Name" value="Mutant:Head" />
+								<attribute name="Tags" />
+								<attribute name="Position" value="-2.57757e-09 8.81732 -6.10262" />
+								<attribute name="Rotation" value="0.979834 0.198025 -0.0205422 -0.0170112" />
+								<attribute name="Scale" value="1 1 1" />
+								<attribute name="Variables" />
+							</node>
+						</node>
+						<node id="16794985">
+							<attribute name="Is Enabled" value="true" />
+							<attribute name="Name" value="Mutant:LeftShoulder" />
+							<attribute name="Tags" />
+							<attribute name="Position" value="9.55357 16.0654 5.22783" />
+							<attribute name="Rotation" value="0.971713 -0.16058 0.166718 0.0468187" />
+							<attribute name="Scale" value="1 1 1" />
+							<attribute name="Variables" />
+							<node id="16794986">
+								<attribute name="Is Enabled" value="true" />
+								<attribute name="Name" value="Mutant:LeftArm" />
+								<attribute name="Tags" />
+								<attribute name="Position" value="17.893 2.06608 0.922929" />
+								<attribute name="Rotation" value="0.912569 0.20933 0.233817 -0.262163" />
+								<attribute name="Scale" value="1 1 1" />
+								<attribute name="Variables" />
+								<node id="16794987">
+									<attribute name="Is Enabled" value="true" />
+									<attribute name="Name" value="Mutant:LeftForeArm" />
+									<attribute name="Tags" />
+									<attribute name="Position" value="26.3748 -0.000101682 1.45906" />
+									<attribute name="Rotation" value="0.89528 -0.0557343 0.41698 -0.146608" />
+									<attribute name="Scale" value="1 1 1" />
+									<attribute name="Variables" />
+								</node>
+							</node>
+						</node>
+						<node id="16794988">
+							<attribute name="Is Enabled" value="true" />
+							<attribute name="Name" value="Mutant:RightShoulder" />
+							<attribute name="Tags" />
+							<attribute name="Position" value="-9.55357 16.0654 5.22783" />
+							<attribute name="Rotation" value="0.980951 -0.143689 -0.11893 -0.0542647" />
+							<attribute name="Scale" value="1 1 1" />
+							<attribute name="Variables" />
+							<node id="16794989">
+								<attribute name="Is Enabled" value="true" />
+								<attribute name="Name" value="Mutant:RightArm" />
+								<attribute name="Tags" />
+								<attribute name="Position" value="-17.8119 2.06608 0.922929" />
+								<attribute name="Rotation" value="0.894406 0.188615 -0.179253 0.363773" />
+								<attribute name="Scale" value="1 1 1" />
+								<attribute name="Variables" />
+								<node id="16794990">
+									<attribute name="Is Enabled" value="true" />
+									<attribute name="Name" value="Mutant:RightForeArm" />
+									<attribute name="Tags" />
+									<attribute name="Position" value="-26.3748 -0.000101682 1.45906" />
+									<attribute name="Rotation" value="0.834866 0.112924 -0.525807 0.117362" />
+									<attribute name="Scale" value="1 1 1" />
+									<attribute name="Variables" />
+									<node id="16794991">
+										<attribute name="Is Enabled" value="true" />
+										<attribute name="Name" value="Mutant:RightHand" />
+										<attribute name="Tags" />
+										<attribute name="Position" value="-26.7534 0.000357201 -1.605e-05" />
+										<attribute name="Rotation" value="0.957218 -0.00707708 0.209406 0.199584" />
+										<attribute name="Scale" value="1 1 1" />
+										<attribute name="Variables" />
+										<node id="16794992">
+											<attribute name="Is Enabled" value="true" />
+											<attribute name="Name" value="Mutant:RightHandThumb1" />
+											<attribute name="Tags" />
+											<attribute name="Position" value="-2.49235 -4.44635 -6.16348" />
+											<attribute name="Rotation" value="0.912373 -0.399424 0.0872294 0.0206462" />
+											<attribute name="Scale" value="1 1 1" />
+											<attribute name="Variables" />
+											<node id="16794993">
+												<attribute name="Is Enabled" value="true" />
+												<attribute name="Name" value="Mutant:RightHandThumb2" />
+												<attribute name="Tags" />
+												<attribute name="Position" value="-6.60264 -4.314 -6.89045" />
+												<attribute name="Rotation" value="0.994937 0.0450268 -0.0383226 -0.0812639" />
+												<attribute name="Scale" value="1 1 1" />
+												<attribute name="Variables" />
+												<node id="16794994">
+													<attribute name="Is Enabled" value="true" />
+													<attribute name="Name" value="Mutant:RightHandThumb3" />
+													<attribute name="Tags" />
+													<attribute name="Position" value="-6.78477 -2.9669 -4.17053" />
+													<attribute name="Rotation" value="0.989933 -0.0377632 -0.0738418 -0.11469" />
+													<attribute name="Scale" value="1 1 1" />
+													<attribute name="Variables" />
+													<node id="16794995">
+														<attribute name="Is Enabled" value="true" />
+														<attribute name="Name" value="Mutant:RightHandThumb4" />
+														<attribute name="Tags" />
+														<attribute name="Position" value="-7.13065 -2.03375 -3.06964" />
+														<attribute name="Rotation" value="1 0 0 0" />
+														<attribute name="Scale" value="0.01 0.01 0.01" />
+														<attribute name="Variables" />
+													</node>
+												</node>
+											</node>
+										</node>
+										<node id="16794996">
+											<attribute name="Is Enabled" value="true" />
+											<attribute name="Name" value="Mutant:RightHandIndex1" />
+											<attribute name="Tags" />
+											<attribute name="Position" value="-18.4478 1.47989 -8.65425" />
+											<attribute name="Rotation" value="0.89574 -0.252032 -0.225383 0.288672" />
+											<attribute name="Scale" value="1 1 1" />
+											<attribute name="Variables" />
+											<node id="16794997">
+												<attribute name="Is Enabled" value="true" />
+												<attribute name="Name" value="Mutant:RightHandIndex2" />
+												<attribute name="Tags" />
+												<attribute name="Position" value="-7.51438 7.94918e-09 1.83943e-10" />
+												<attribute name="Rotation" value="0.980234 -0.00116109 -0.12436 0.153865" />
+												<attribute name="Scale" value="1 1 1" />
+												<attribute name="Variables" />
+												<node id="16794998">
+													<attribute name="Is Enabled" value="true" />
+													<attribute name="Name" value="Mutant:RightHandIndex3" />
+													<attribute name="Tags" />
+													<attribute name="Position" value="-7.48939 6.8506e-09 -8.88178e-16" />
+													<attribute name="Rotation" value="0.988342 0.0328576 -0.101306 0.108796" />
+													<attribute name="Scale" value="1 1 1" />
+													<attribute name="Variables" />
+												</node>
+											</node>
+										</node>
+										<node id="16794999">
+											<attribute name="Is Enabled" value="true" />
+											<attribute name="Name" value="Mutant:RightHandPinky1" />
+											<attribute name="Tags" />
+											<attribute name="Position" value="-17.5078 -0.477745 10.0031" />
+											<attribute name="Rotation" value="0.907257 0.0577973 -0.317877 0.269254" />
+											<attribute name="Scale" value="1 1 1" />
+											<attribute name="Variables" />
+											<node id="16795000">
+												<attribute name="Is Enabled" value="true" />
+												<attribute name="Name" value="Mutant:RightHandPinky2" />
+												<attribute name="Tags" />
+												<attribute name="Position" value="-7.04422 7.94896e-09 1.83922e-10" />
+												<attribute name="Rotation" value="0.96432 1.39705e-05 -0.0219967 0.263823" />
+												<attribute name="Scale" value="1 1 1" />
+												<attribute name="Variables" />
+												<node id="16795001">
+													<attribute name="Is Enabled" value="true" />
+													<attribute name="Name" value="Mutant:RightHandPinky3" />
+													<attribute name="Tags" />
+													<attribute name="Position" value="-7.0789 4.11814e-09 -0" />
+													<attribute name="Rotation" value="0.936117 -5.85964e-05 -0.0289776 0.350493" />
+													<attribute name="Scale" value="1 1 1" />
+													<attribute name="Variables" />
+												</node>
+											</node>
+										</node>
+									</node>
+								</node>
+							</node>
+						</node>
+					</node>
+				</node>
+			</node>
+			<node id="16795002">
+				<attribute name="Is Enabled" value="true" />
+				<attribute name="Name" value="Mutant:LeftUpLeg" />
+				<attribute name="Tags" />
+				<attribute name="Position" value="13.656 -7.13524 -0.129696" />
+				<attribute name="Rotation" value="0.917754 0.309702 -0.0790052 0.235735" />
+				<attribute name="Scale" value="1 1 1" />
+				<attribute name="Variables" />
+				<node id="16795003">
+					<attribute name="Is Enabled" value="true" />
+					<attribute name="Name" value="Mutant:LeftLeg" />
+					<attribute name="Tags" />
+					<attribute name="Position" value="2.6874e-05 -35.9191 -1.48144" />
+					<attribute name="Rotation" value="0.873788 -0.476554 0.0192178 -0.0949797" />
+					<attribute name="Scale" value="1 1 1" />
+					<attribute name="Variables" />
+					<node id="16795004">
+						<attribute name="Is Enabled" value="true" />
+						<attribute name="Name" value="Mutant:LeftFoot" />
+						<attribute name="Tags" />
+						<attribute name="Position" value="6.21725e-14 -34.3074 2.64674" />
+						<attribute name="Rotation" value="0.980874 0.15555 0.0832193 -0.0822436" />
+						<attribute name="Scale" value="1 1 1" />
+						<attribute name="Variables" />
+						<node id="16795005">
+							<attribute name="Is Enabled" value="true" />
+							<attribute name="Name" value="Mutant:LeftToeBase" />
+							<attribute name="Tags" />
+							<attribute name="Position" value="4.79616e-14 -15.1931 -14.9118" />
+							<attribute name="Rotation" value="0.992841 0.0363576 0.113354 -0.00978784" />
+							<attribute name="Scale" value="1 1 1" />
+							<attribute name="Variables" />
+						</node>
+					</node>
+				</node>
+			</node>
+			<node id="16795006">
+				<attribute name="Is Enabled" value="true" />
+				<attribute name="Name" value="Mutant:RightUpLeg" />
+				<attribute name="Tags" />
+				<attribute name="Position" value="-13.656 -7.13524 -0.129696" />
+				<attribute name="Rotation" value="0.921727 0.312137 0.158312 -0.167112" />
+				<attribute name="Scale" value="1 1 1" />
+				<attribute name="Variables" />
+				<node id="16795007">
+					<attribute name="Is Enabled" value="true" />
+					<attribute name="Name" value="Mutant:RightLeg" />
+					<attribute name="Tags" />
+					<attribute name="Position" value="-2.6874e-05 -35.9191 -1.48144" />
+					<attribute name="Rotation" value="0.879996 -0.470443 -0.0654883 0.000913787" />
+					<attribute name="Scale" value="1 1 1" />
+					<attribute name="Variables" />
+					<node id="16795008">
+						<attribute name="Is Enabled" value="true" />
+						<attribute name="Name" value="Mutant:RightFoot" />
+						<attribute name="Tags" />
+						<attribute name="Position" value="-4.26326e-14 -34.3074 2.64674" />
+						<attribute name="Rotation" value="0.980456 0.1484 -0.0429286 0.121824" />
+						<attribute name="Scale" value="1 1 1" />
+						<attribute name="Variables" />
+						<node id="16795009">
+							<attribute name="Is Enabled" value="true" />
+							<attribute name="Name" value="Mutant:RightToeBase" />
+							<attribute name="Tags" />
+							<attribute name="Position" value="-6.57252e-14 -15.1931 -14.9118" />
+							<attribute name="Rotation" value="0.989526 0.0435882 -0.0892893 0.104713" />
+							<attribute name="Scale" value="1 1 1" />
+							<attribute name="Variables" />
+						</node>
+					</node>
+				</node>
+			</node>
+		</node>
+	</node>
+</node>

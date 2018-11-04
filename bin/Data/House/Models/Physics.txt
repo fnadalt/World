@@ -1,0 +1,6 @@
+House/Materials/ceiling.xml
+House/Materials/rocky.xml
+House/Materials/adobe.xml
+House/Materials/floor.xml
+House/Materials/roof.xml
+House/Materials/wall_inner.xml

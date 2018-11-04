@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<element type="Window">
+	<attribute name="Name" value="MessageWindow" />
+	<attribute name="Size" value="250 100" />
+	<attribute name="Max Size" value="250 350" />
+	<attribute name="Min Anchor" value="0.5 1" />
+	<attribute name="Max Anchor" value="0.5 1" />
+	<attribute name="Pivot" value="0.5 1" />
+	<attribute name="Opacity" value="0.5" />
+	<attribute name="Layout Mode" value="Horizontal" />
+	<attribute name="Layout Spacing" value="6" />
+	<attribute name="Layout Border" value="6 6 6 6" />
+	<attribute name="Image Rect" value="48 0 64 16" />
+	<attribute name="Border" value="4 4 4 4" />
+	<attribute name="Resize Border" value="8 8 8 8" />
+	<element type="Text">
+		<attribute name="Name" value="Text" />
+		<attribute name="Pivot" value="0 0" />
+		<attribute name="Top Left Color" value="0.85 0.85 0.85 1" />
+		<attribute name="Top Right Color" value="0.85 0.85 0.85 1" />
+		<attribute name="Bottom Left Color" value="0.85 0.85 0.85 1" />
+		<attribute name="Bottom Right Color" value="0.85 0.85 0.85 1" />
+		<attribute name="Text" value="mensaje..." />
+		<attribute name="Word Wrap" value="true" />
+	</element>
+</element>

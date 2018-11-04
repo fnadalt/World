@@ -1,0 +1,6 @@
+quebracho01.jpg: ?
+quebracho02.jpg: http://www.cnip.org.br/bdpn/fotosdb/203914390.JPG
+quebracho03.jpg: http://www.esacademic.com/pictures/eswiki/83/Schinopsis_balansae.jpg
+quebracho04.jpg: ?
+quebracho.[blend|xcf]: propio
+quebracho_*: propio

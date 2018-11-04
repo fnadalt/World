@@ -1,0 +1,20 @@
+<renderpath>
+<!--
+    <rendertarget name="velo" tag="UnderWater" sizedivisor="4 4" format="rgb" filter="true" />
+    <command type="quad" tag="UnderWater" vs="UnderWater" ps="UnderWater" psdefines="VELO" output="velo">
+        <parameter name="OceanAltitude" value="0.0" />
+    </command>
+    <command type="quad" tag="UnderWater" vs="UnderWater" ps="UnderWater" psdefines="COMBINE" output="viewport">
+        <texture unit="diffuse" name="viewport" />
+    </command>
+-->
+    <command type="quad" tag="UnderWater" vs="UnderWater" ps="UnderWater" psdefines="NOISEDEFORM" output="viewport" >
+        <parameter name="ElapsedTime" value="0.0" />
+        <parameter name="OceanAltitude" value="0.0" />
+        <texture unit="diffuse" name="viewport" />
+        <texture unit="normal" name="Textures/noise.png" />
+        <texture unit="emissive" name="Textures/UnderWater.jpg" />
+        <texture unit="depth" name="depth" />
+    </command>
+    <command type="clear" color="1 1 1 1" depth="1.0" output="depth" />
+</renderpath>

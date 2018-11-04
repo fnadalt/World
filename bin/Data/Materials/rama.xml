@@ -1,0 +1,8 @@
+<material>
+	<technique name="Techniques/Vegetation.xml"/>
+	<texture name="Textures/quebracho_rama2.png" unit="diffuse"/>
+	<parameter name="MatDiffColor" value="0.8 0.8 0.8 1"/>
+	<parameter name="MatSpecColor" value="0 0 0 50"/>
+	<cull value="none"/>
+	<shadowcull value="none"/>
+</material>

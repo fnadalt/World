@@ -1,0 +1,5 @@
+<texture>
+    <address mode="wrap" />
+    <filter mode="nearest" />
+    <mipmap enable="false" />
+</texture>

@@ -1,0 +1,5 @@
+<texture>
+    <address mode="bilinear" />
+    <filter mode="nearest" />
+    <mipmap enable="false" />
+</texture>

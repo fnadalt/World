@@ -1,0 +1,11 @@
+<material>
+    <technique name="Techniques/Terrain.xml" />
+    <texture unit="0" name="Textures/terreno7.png" />
+    <texture unit="1" name="Textures/land_data_alpha0.png" />
+    <texture unit="2" name="Textures/land_data_alpha1.png" />
+    <parameter name="MatDiffColor" value="1.0 1.0 1.0 1.0" />
+    <parameter name="MatSpecColor" value="0.0 0.0 0.0 16" />
+    <parameter name="DetailTiling" value="1024 1024" />
+    <parameter name="HeightMapSize" value="257" />
+    <parameter name="TerrainSpacingXZ" value="8.0" />
+</material>

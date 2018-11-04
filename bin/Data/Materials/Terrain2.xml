@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<material>
+	<technique name="Techniques/Terrain.xml" quality="0" loddistance="0" />
+	<texture unit="diffuse" name="Textures/TerrainWeights.dds" />
+	<texture unit="normal" name="Textures/Terrain/ground_dry_d.jpg" />
+	<texture unit="specular" name="Textures/Terrain/savanna_yellow_d.jpg" />
+	<texture unit="emissive" name="Textures/Terrain/grass_green_d.jpg" />
+	<parameter name="UOffset" value="1 0 0 0" />
+	<parameter name="VOffset" value="0 1 0 0" />
+	<parameter name="MatDiffColor" value="1 1 1 1" />
+	<parameter name="MatEmissiveColor" value="0 0 0" />
+	<parameter name="MatEnvMapColor" value="1 1 1" />
+	<parameter name="MatSpecColor" value="0.5 0.5 0.5 16" />
+	<parameter name="Roughness" value="0.5" />
+	<parameter name="Metallic" value="0" />
+	<parameter name="DetailTiling" value="32 32" />
+	<cull value="ccw" />
+	<shadowcull value="ccw" />
+	<fill value="solid" />
+	<depthbias constant="0" slopescaled="0" />
+	<alphatocoverage enable="false" />
+	<lineantialias enable="false" />
+	<renderorder value="128" />
+	<occlusion enable="true" />
+</material>

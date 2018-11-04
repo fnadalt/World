@@ -1,0 +1,5 @@
+Man/Materials/Chaleco.xml
+Man/Materials/eyeball.xml
+Man/Materials/male.xml
+Man/Materials/jaw.xml
+Man/Materials/Pantalones.xml

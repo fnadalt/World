@@ -1,0 +1,7 @@
+<material>
+    <technique name="Techniques/Sky.xml" />
+	<texture unit="diffuse" name="Textures/sky_color.png" />
+	<texture unit="specular" name="Textures/sky_glow.png" />
+    <parameter name="cSunPosition" value="1.0 0.0 0.0 0.0" />
+    <cull value="none" />
+</material>
