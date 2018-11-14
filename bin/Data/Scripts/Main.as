@@ -185,6 +185,17 @@ void HandleKeyDown(StringHash eventType, VariantMap& eventData)
     else if (key == KEY_F4) {
         graphics.ToggleFullscreen();
     }
+    // Take screenshot
+    if (key == KEY_F6)
+    {
+        Image@ screenshot = Image();
+        graphics.TakeScreenShot(screenshot);
+        // Here we save in the Data folder with date and time appended
+        String filePath = fileSystem.programDir + "Screenshot_" + time.timeStamp.Replaced(':', '_').Replaced('.', '_').Replaced(' ', '_') + ".png";
+        screenshot.SavePNG(filePath);
+        //
+        ShowMessage("Screenshot saved to " + filePath);
+    }
 
 }
 
