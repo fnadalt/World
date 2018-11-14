@@ -43,6 +43,11 @@ class StateStart : State
             SubscribeToEvent(wnetButton, "Released", "HandleWNetClicked");
             SubscribeToEvent(wsrvButton, "Released", "HandleWSrvClicked");
             SubscribeToEvent(terrButton, "Released", "HandleTerrainClicked");
+            //
+            log.Info("graphics.size = " + graphics.size.ToString());
+            Sprite@ bg = ui.root.GetChild("Background");
+            bg.position = Vector2(-graphics.size.x, -graphics.size.y) / 2.0f;
+            bg.size = graphics.size;
         } else {
             Button@ exitButton = uiStart.GetChild("btnExit", true);
             Button@ wlocalButton = uiStart.GetChild("btnWorldLocal", true);
@@ -63,16 +68,16 @@ class StateStart : State
     {
         if (flag)
         {
-            scene_.LoadXML(cache.GetFile("Scenes/World2.xml"));
-            Vector3 position = Vector3::ZERO;
-            Quaternion rotation = Quaternion();
-            Node@ camDrv = scene_.GetChild("CameraDriver");
-            if (camDrv !is null) {
-                cameraNode.position = camDrv.worldPosition;
-                cameraNode.rotation = camDrv.worldRotation;
-            }
+            input.mouseVisible = true;
+            //~ scene_.LoadXML(cache.GetFile("Scenes/Start.xml"));
+            //~ Node@ camDrv = scene_.GetChild("CameraDriver");
+            //~ if (camDrv !is null) {
+                //~ cameraNode.position = camDrv.worldPosition;
+                //~ cameraNode.rotation = camDrv.worldRotation;
+            //~ }
         } else {
-            scene_.Clear();
+            input.mouseVisible = false;
+            //~ scene_.Clear();
         }
     }
 
