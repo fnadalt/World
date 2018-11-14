@@ -153,9 +153,10 @@ class Person : ScriptObject
         //
         if (controls.IsPressed(CTRL_ACTION, prevControls))
         {
+            log.Info("Drop bomb");
             Vector3 position = node.position + node.direction * 1.0f + Vector3::UP * 0.75f;
             Quaternion rotation = Quaternion(0.0f, 0.0f, 0.0f);
-            Node@ bomb = scene.InstantiateXML(cache.GetFile("Objects/Bomb.xml"), position, rotation);
+            Node@ bomb = scene.InstantiateXML(cache.GetFile("Objects/Bomb.xml"), position, rotation, REPLICATED);
         }
     }
 
