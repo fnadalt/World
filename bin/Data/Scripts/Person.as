@@ -16,6 +16,8 @@ const float BRAKE_FORCE = 0.2f;
 const float JUMP_FORCE = 7.0f;
 const float INAIR_THRESHOLD_TIME = 0.15f;
 
+const int GRAB_METHOD_PARENTING = 0;
+const int GRAB_METHOD_POSITIONING = 1;
 
 class Person : ScriptObject
 {
@@ -34,6 +36,7 @@ class Person : ScriptObject
     float _inAirTimer = 0.0f;
 
     // Grabbed node
+    int _grabMethod = GRAB_METHOD_PARENTING;
     Node@ handNode;
     Node@ grabbedNode;
 
@@ -119,34 +122,13 @@ class Person : ScriptObject
         //
         if (controls.IsPressed(CTRL_PICK, prevControls))
         {
-            if (grabbedNode is null)
-            // Pick?
+            if (_grabMethod == GRAB_METHOD_PARENTING)
             {
-                // Items contacted?
-                RigidBody@[]@ collBodies = physicsWorld.GetCollidingBodies(body);
-                for (uint i = 0; i < collBodies.length; i++)
-                {
-                    if (collBodies[i].node.HasTag(TAG_ITEM))
-                    {
-                        // Pick
-                        grabbedNode = collBodies[i].node;
-                        collBodies[i].enabled = false;
-                        break;
-                    }
-                }
-                //~ grabbedNode.parent = handNode;
-                //~ grabbedNode.position = Vector3::ZERO;
-                //~ grabbedNode.rotation = Quaternion(0.0f, 0.0f, 0.0f);
+                GrabObjectParenting();
             }
-            else
-            // Drop
+            else if (_grabMethod == GRAB_METHOD_POSITIONING)
             {
-                //~ grabbedNode.parent = scene;
-                //~ grabbedNode.position += Vector3::FORWARD * 2.0f;
-                //~ grabbedNode.rotation = Quaternion(0.0f, 0.0f, 0.0f);
-                RigidBody@ grabbedBody = cast<RigidBody>(grabbedNode.GetComponent("RigidBody"));
-                grabbedBody.enabled = true;
-                grabbedNode = null;
+                GrabObjectPositioning();
             }
         }
 
@@ -156,7 +138,7 @@ class Person : ScriptObject
             log.Info("Drop bomb");
             Vector3 position = node.position + node.direction * 1.0f + Vector3::UP * 0.75f;
             Quaternion rotation = Quaternion(0.0f, 0.0f, 0.0f);
-            Node@ bomb = scene.InstantiateXML(cache.GetFile("Objects/Bomb.xml"), position, rotation, REPLICATED);
+            Node@ bomb = scene.InstantiateXML(cache.GetResource("XMLFile", "Objects/Bomb.xml"), position, rotation, REPLICATED);
         }
     }
 
@@ -248,13 +230,76 @@ class Person : ScriptObject
         // Reset grounded flag for next frame
         _onGround = false;
 
-        // Update grabbed node transform, expensive?! Torpid at least.
-        if (grabbedNode !is null)
+        if (_grabMethod == GRAB_METHOD_POSITIONING)
         {
-            grabbedNode.worldPosition = handNode.worldPosition;
-            grabbedNode.worldRotation = handNode.worldRotation * Quaternion(90.0f, Vector3::FORWARD);
+            // Update grabbed node transform, expensive?! Torpid at least.
+            if (grabbedNode !is null)
+            {
+                grabbedNode.worldPosition = handNode.worldPosition;
+                grabbedNode.worldRotation = handNode.worldRotation * Quaternion(90.0f, Vector3::FORWARD);
+            }
         }
 
+    }
+
+    void GrabObjectParenting()
+    {
+        if (grabbedNode is null)
+        // Pick?
+        {
+            // Items contacted?
+            RigidBody@[]@ collBodies = physicsWorld.GetCollidingBodies(body);
+            for (uint i = 0; i < collBodies.length; i++)
+            {
+                if (collBodies[i].node.HasTag(TAG_ITEM))
+                {
+                    // Pick
+                    grabbedNode = collBodies[i].node;
+                    collBodies[i].enabled = false;
+                    break;
+                }
+            }
+            grabbedNode.parent = handNode;
+            grabbedNode.position = Vector3::ZERO;
+            grabbedNode.rotation = Quaternion(0.0f, 0.0f, 0.0f);
+        }
+        else
+        // Drop
+        {
+            grabbedNode.parent = scene;
+            grabbedNode.position += Vector3::FORWARD * 2.0f;
+            grabbedNode.rotation = Quaternion(0.0f, 0.0f, 0.0f);
+            RigidBody@ grabbedBody = cast<RigidBody>(grabbedNode.GetComponent("RigidBody"));
+            grabbedBody.enabled = true;
+            grabbedNode = null;
+        }
+    }
+
+    void GrabObjectPositioning()
+    {
+        if (grabbedNode is null)
+        // Pick?
+        {
+            // Items contacted?
+            RigidBody@[]@ collBodies = physicsWorld.GetCollidingBodies(body);
+            for (uint i = 0; i < collBodies.length; i++)
+            {
+                if (collBodies[i].node.HasTag(TAG_ITEM))
+                {
+                    // Pick
+                    grabbedNode = collBodies[i].node;
+                    collBodies[i].enabled = false;
+                    break;
+                }
+            }
+        }
+        else
+        // Drop
+        {
+            RigidBody@ grabbedBody = cast<RigidBody>(grabbedNode.GetComponent("RigidBody"));
+            grabbedBody.enabled = true;
+            grabbedNode = null;
+        }
     }
 
 }
