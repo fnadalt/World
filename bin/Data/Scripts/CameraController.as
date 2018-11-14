@@ -4,14 +4,11 @@
 class CameraController : ScriptObject
 {
 
-    float RefreshRate = 15.0f;
-
     Node@ _cameraNode;
     Camera@ _camera;
     Node@ _targetNode;
     CamRig@ _rig;
 
-    float _timer = 0.0f;
     int _mode;
     int _rig_type = CAM_RIG_FREE;
 
@@ -135,11 +132,6 @@ class CameraController : ScriptObject
 
     void Update(float timeStep)
     {
-        _timer += timeStep;
-        if (_timer < 1.0f / RefreshRate)
-            return;
-        _timer -= 1.0f / RefreshRate;
-
         _rig.MoveCamera(timeStep);
     }
 
