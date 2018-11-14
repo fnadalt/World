@@ -832,7 +832,7 @@ class StateWorld : State
                 log.Info("Skip " + node.name);
                 continue;
             }
-            log.Info("Remove from " + node.name);
+            log.Info("Disable script from " + node.name);
             // scripts
             Component@[]@ scripts = node.GetComponents("ScriptInstance");
             for (uint j = 0; j < scripts.length; j++)
@@ -840,8 +840,17 @@ class StateWorld : State
                 Component@ script = scripts[j];
                 script.enabled = false;
             }
-            // physics
-            if (node.HasComponent("RigidBody")) node.GetComponent("RigidBody").enabled = false;
+        }
+        replicated = scene_.GetChildrenWithComponent("RigidBody");
+        for (uint i = 0; i < replicated.length; i++)
+        {
+            Node@ node = replicated[i];
+            if (!node.replicated){
+                log.Info("Skip " + node.name);
+                continue;
+            }
+            log.Info("Disable physics from " + node.name);
+            node.GetComponent("RigidBody").enabled = false;
             if (node.HasComponent("CollisionShape")) node.GetComponent("CollisionShape").enabled = false;
         }
         // Camera

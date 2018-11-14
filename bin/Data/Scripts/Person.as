@@ -36,7 +36,7 @@ class Person : ScriptObject
     float _inAirTimer = 0.0f;
 
     // Grabbed node
-    int _grabMethod = GRAB_METHOD_PARENTING;
+    int _grabMethod = GRAB_METHOD_POSITIONING;
     Node@ handNode;
     Node@ grabbedNode;
 
