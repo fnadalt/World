@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 <node id="43">
-	<attribute name="Is Enabled" value="true" />
-	<attribute name="Name" value="Bomb" />
-	<attribute name="Tags" />
-	<attribute name="Position" value="118.573 15.6086 38" />
-	<attribute name="Rotation" value="1 0 0 1.77048e-11" />
-	<attribute name="Scale" value="0.5 0.5 0.5" />
-	<attribute name="Variables" />
-	<component type="StaticModel" id="16812787">
-		<attribute name="Model" value="Model;Models/Sphere.mdl" />
-		<attribute name="Material" value="Material;" />
-	</component>
-	<component type="RigidBody" id="16812788">
-		<attribute name="Physics Rotation" value="1 0 0 1.77048e-11" />
-		<attribute name="Physics Position" value="118.573 15.6086 38" />
-		<attribute name="Mass" value="7" />
-		<attribute name="Rolling Friction" value="0.15" />
-	</component>
-	<component type="CollisionShape" id="16812789">
-		<attribute name="Shape Type" value="Sphere" />
-	</component>
-	<component type="ScriptInstance" id="16812790">
-		<attribute name="Delayed Method Calls" value="0" />
-		<attribute name="Script File" value="ScriptFile;Scripts/Bomb.as" />
-		<attribute name="Class Name" value="Bomb" />
-		<attribute name="Timeout" value="5" />
-	</component>
+    <attribute name="Is Enabled" value="true" />
+    <attribute name="Name" value="Bomb" />
+    <attribute name="Tags" />
+    <attribute name="Position" value="118.573 15.6086 38" />
+    <attribute name="Rotation" value="1 0 0 1.77048e-11" />
+    <attribute name="Scale" value="0.5 0.5 0.5" />
+    <attribute name="Variables" />
+    <component type="StaticModel" id="100">
+        <attribute name="Model" value="Model;Models/Sphere.mdl" />
+        <attribute name="Material" value="Material;" />
+    </component>
+    <component type="RigidBody" id="16812788">
+        <attribute name="Physics Rotation" value="1 0 0 1.77048e-11" />
+        <attribute name="Physics Position" value="118.573 15.6086 38" />
+        <attribute name="Mass" value="7" />
+        <attribute name="Rolling Friction" value="0.15" />
+    </component>
+    <component type="CollisionShape" id="16812789">
+        <attribute name="Shape Type" value="Sphere" />
+    </component>
+    <component type="ScriptInstance" id="16812790">
+        <attribute name="Delayed Method Calls" value="0" />
+        <attribute name="Script File" value="ScriptFile;Scripts/Bomb.as" />
+        <attribute name="Class Name" value="Bomb" />
+        <attribute name="Timeout" value="5" />
+    </component>
 </node>
