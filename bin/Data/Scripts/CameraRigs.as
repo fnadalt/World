@@ -1,5 +1,5 @@
 float yaw = 0.0f;
-float pitch = 0.0f;
+float pitch = 5.0f;
 
 class CamRig
 {
@@ -102,8 +102,9 @@ class CamRigFstp : CamRig
 class CamRigThrdp : CamRig
 {
 
-    float yaw = 0.0f;
-    float pitch = 5.0f;
+    float CameraHeightAdjustStart = 1.0f;
+    float CameraHeightAdjustEnd = 2.0f;
+    bool AdjustingCameraHeight = false;
 
     CamRigThrdp(Scene@ scene, Node@ cameraNode)
     {
@@ -112,40 +113,38 @@ class CamRigThrdp : CamRig
 
     void Init()
     {
-        _targetNode.AddChild(_cameraNode);
+        //~ _targetNode.AddChild(_cameraNode);
         UpdateCameraPosition(0.0f);
     }
 
     void UpdateCameraPosition(float timeStep)
     {
-        //
-        debugHud.SetAppStats("camera position", _cameraNode.worldPosition.ToString());
+        // Ray cast ground
         Ray ray = Ray(_cameraNode.worldPosition, Vector3::DOWN);
         PhysicsRaycastResult[]@ result = physicsWorld.Raycast(ray, 10.0f);  // use mask!!!
-        String hits;
         for (uint i = 0; i < result.length; i++)
         {
-            hits = hits + " [" + result[i].body.node.name + "]";
             if (result[i].body.node.name == "Terrain")
             {
-                debugHud.SetAppStats("ground from camera", result[i].body.position.ToString());
                 float height = _cameraNode.worldPosition.y - result[i].position.y;
-                if (height < 1.0f) {
-                    debugHud.SetAppStats("camera", "close to ground");
-                    pitch += 50.0f * timeStep;
-                } else {
-                    debugHud.SetAppStats("camera", "far from ground");
+                if (height < CameraHeightAdjustStart) {
+                    AdjustingCameraHeight = true;
+                } else if (AdjustingCameraHeight && height > CameraHeightAdjustEnd) {
+                    AdjustingCameraHeight = false;
                 }
             }
         }
-        debugHud.SetAppStats("pitch", String(pitch));
-        debugHud.SetAppStats("hits", hits);
-        //
-        Quaternion dir(_targetNode.rotation.yaw, Vector3::UP);
+        // Adjust pitch accoding to camera height
+        if (AdjustingCameraHeight)
+        {
+            pitch += 50.0f * timeStep;
+        }
+        // Adjust camera position
+        Quaternion dir(_targetNode.worldRotation.yaw, Vector3::UP);
         dir = dir * Quaternion(yaw, Vector3::UP);
         dir = dir * Quaternion(pitch, Vector3::RIGHT);
-        _cameraNode.position = _targetNode.position - dir * Vector3(0.0f, 2.0f, 5.0f);
-        _cameraNode.position += Vector3::UP * 2.0f;
+        _cameraNode.worldPosition = _targetNode.worldPosition - dir * Vector3(0.0f, 2.0f, 5.0f);
+        _cameraNode.worldPosition += Vector3::UP * 2.0f;
         _cameraNode.LookAt(_targetNode.worldPosition + Vector3::UP * 1.5f);
     }
 
