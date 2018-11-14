@@ -46,12 +46,15 @@ class StateWorld : State
         log.Info("Enter World in mode = " + mode);
         SetupNetwork(true);
         SetupUI(true);
-        SetupScene(true);
-        SetupViewports(true);
         SetupEvents(true);
+        if (mode == WRLD_MODE_LOCAL || mode == WRLD_MODE_SERVER)
+        {
+            SetupScene(true);
+            if (mode == WRLD_MODE_LOCAL) SetupViewports(true);
+            SubscribeToEvent(scene_, "SceneUpdate", "HandleSceneUpdate");
+        }
         //
         camera.farClip *= 2;
-        terrain.drawDistance = 2 * camera.farClip;
     }
 
     void Exit()
@@ -63,16 +66,6 @@ class StateWorld : State
         SetupScene(false);
         //
         camera.farClip /= 2;
-        terrain.drawDistance = 0;
-        //
-        zoneNode = null;
-        sunRigNode = null;
-        waterPlaneNode = null;
-        terrain = null;
-        zone = null;
-        underWaterZone = null;
-        if (renderer.numViewports == 1) renderer.viewports[1] = null;
-        offsceenRenderPath = null;
     }
 
     void SetupNetwork(bool flag)
@@ -149,30 +142,46 @@ class StateWorld : State
 
     void SetupScene(bool flag)
     {
+        log.Info("SetupScene");
+        //
+        if (flag)
+        {
+            if (mode == WRLD_MODE_SERVER || mode == WRLD_MODE_LOCAL)
+            {
+                // Load scene from file
+                scene_.LoadXML(cache.GetFile("Scenes/World.xml"));
+            }
+            // Zone node
+            zoneNode = scene_.GetChild("Zone");
+            Component@[]@ zones = zoneNode.GetComponents("Zone", false);
+            zone = cast<Zone>(zones[0]);
+            underWaterZone = cast<Zone>(zones[1]);
+            // Sun rig node
+            sunRigNode = scene_.GetChild("SunRig");
+            // Water plane
+            waterPlaneNode = scene_.GetChild("WaterPlane");
+            waterPlaneNode.worldPosition = Vector3(cameraNode.worldPosition.x, 0.0f, cameraNode.worldPosition.z);
+            waterPlaneNode.worldPosition += Vector3::UP * 255 * WATER_PLANE_ALTITUDE;
+            scene_.vars["OceanAltitude"] = waterPlaneNode.position.y;
+            // Terrain
+            Node@ terrainNode = scene_.GetChild("Terrain");
+            terrain = cast<Terrain>(terrainNode.GetComponent("Terrain"));
+            // Apply terrain material
+            terrain.material = cache.GetResource("Material", "Materials/Terrain.xml");
+            terrain.material.shaderParameters["HeightMapSize"] = terrain.heightMap.width;
+            terrain.material.shaderParameters["TerrainSpacingXZ"] = terrain.spacing.x;
+        } else {
+            zoneNode = null;
+            zone = null;
+            underWaterZone = null;
+            sunRigNode = null;
+            waterPlaneNode = null;
+            terrain = null;
+        }
+        //
         if (mode == WRLD_MODE_SERVER || mode == WRLD_MODE_LOCAL)
         {
             if (flag) {
-                // Load scene from file
-                scene_.LoadXML(cache.GetFile("Scenes/World2.xml"));
-                // Zone node
-                zoneNode = scene_.GetChild("Zone");
-                Component@[]@ zones = zoneNode.GetComponents("Zone", false);
-                zone = cast<Zone>(zones[0]);
-                underWaterZone = cast<Zone>(zones[1]);
-                // Sun rig node
-                sunRigNode = scene_.GetChild("SunRig");
-                // Water plane
-                waterPlaneNode = scene_.GetChild("WaterPlane");
-                waterPlaneNode.worldPosition = Vector3(cameraNode.worldPosition.x, 0.0f, cameraNode.worldPosition.z);
-                waterPlaneNode.worldPosition += Vector3::UP * 255 * WATER_PLANE_ALTITUDE;
-                scene_.vars["OceanAltitude"] = waterPlaneNode.position.y;
-                // Terrain
-                Node@ terrainNode = scene_.GetChild("Terrain");
-                terrain = cast<Terrain>(terrainNode.GetComponent("Terrain"));
-                // Apply terrain material
-                terrain.material = cache.GetResource("Material", "Materials/Terrain.xml");
-                terrain.material.shaderParameters["HeightMapSize"] = terrain.heightMap.width;
-                terrain.material.shaderParameters["TerrainSpacingXZ"] = terrain.spacing.x;
                 // Vegetation
                 PlaceTrees();
                 SpawnVehicle();
@@ -214,15 +223,14 @@ class StateWorld : State
 
     void SetupEvents(bool flag)
     {
+        log.Info("SetupEvents");
         if (flag)
         {
             if (mode == WRLD_MODE_CLIENT || mode == WRLD_MODE_SERVER)
             {
                 network.RegisterRemoteEvent("AuthFailed");
-                network.RegisterRemoteEvent("SceneReady");
                 network.RegisterRemoteEvent("SendMessage");
-                network.RegisterRemoteEvent("HandleNodeSelected");
-                network.RegisterRemoteEvent("RequestCamMode");
+                network.RegisterRemoteEvent("CompleteSceneSetup");
                 network.RegisterRemoteEvent("RequestCamRig");
                 network.RegisterRemoteEvent("NodeSelected");
                 if (mode == WRLD_MODE_CLIENT)
@@ -230,6 +238,7 @@ class StateWorld : State
                     SubscribeToEvent("NetworkUpdateSent", "HandleNetworkUpdateSent");
                     SubscribeToEvent("ConnectFailed", "HandleConnectFailed");
                     SubscribeToEvent("AuthFailed", "HandleAuthFailed");
+                    SubscribeToEvent("CompleteSceneSetup", "HandleCompleteSceneSetup");
                 }
                 else if (mode == WRLD_MODE_SERVER)
                 {
@@ -239,7 +248,6 @@ class StateWorld : State
                 }
 
             }
-            SubscribeToEvent(scene_, "SceneUpdate", "HandleSceneUpdate");
             SubscribeToEvent("KeyDown", "HandleKeyDown");
             SubscribeToEvent("SendMessage", "HandleSendMessage");
             SubscribeToEvent("NodeSelected", "HandleNodeSelected");
@@ -252,6 +260,7 @@ class StateWorld : State
             {
                 if (mode == WRLD_MODE_CLIENT)
                 {
+                    UnsubscribeFromEvent("CompleteSceneSetup");
                     UnsubscribeFromEvent("NetworkUpdateSent");
                     UnsubscribeFromEvent("ConnectFailed");
                     UnsubscribeFromEvent("AuthFailed");
@@ -269,6 +278,7 @@ class StateWorld : State
 
     void SetupViewports(bool flag)
     {
+        log.Info("SetupViewports");
         if (flag) {
             Viewport@ vp1 = renderer.viewports[0];
             if(!vp1.renderPath.Load(cache.GetResource("XMLFile", "RenderPaths/ForwardDepth.xml")))
@@ -295,7 +305,15 @@ class StateWorld : State
             vp1.renderPath.shaderParameters["ElapsedTime"] = 0.0;
             vp1.renderPath.shaderParameters["OceanAltitude"] = waterPlaneNode.worldPosition.y;  // what if just position? Test shader.
             vp1.renderPath.SetEnabled("UnderWater", false);
-            //
+            // Set camera position
+            Node@ camDrv = scene_.GetChild("CameraDriver");
+            if (camDrv !is null) {
+                cameraNode.position = camDrv.worldPosition;
+                cameraNode.rotation = camDrv.worldRotation;
+            }
+        } else {
+            if (renderer.numViewports == 1) renderer.viewports[1] = null;
+            offsceenRenderPath = null;
         }
     }
 
@@ -324,7 +342,6 @@ class StateWorld : State
             //
             placedCount++;
         }
-
     }
 
     // Spawn Mutant
@@ -739,11 +756,7 @@ class StateWorld : State
             clients[clientIdx].userName = _userName;
         }
         // Set camera mode
-        VariantMap edata;
-        edata["Mode"] = CAM_MODE_SELECT;
-        connection.SendRemoteEvent("RequestCamMode", false, edata);
-        // Spawn
-        //~ SpawnVehicle();
+        connection.SendRemoteEvent("CompleteSceneSetup", true);
     }
 
     // Server code
@@ -798,6 +811,43 @@ class StateWorld : State
         // Disconnect
         Connection@ connection = GetEventSender();
         connection.Disconnect();
+    }
+
+    // Client code
+    void HandleCompleteSceneSetup(StringHash eventType, VariantMap& eventData)
+    {
+        log.Info("CompleteSceneSetup");
+        //
+        SetupScene(true);
+        SetupViewports(true);
+        SetupEvents(true);
+        SubscribeToEvent(scene_, "SceneUpdate", "HandleSceneUpdate");
+        // Disable scripts and physics
+        log.Info("Remove physics and scripting from replicated nodes:");
+        Node@[]@ replicated = scene_.GetChildrenWithScript(true);
+        for (uint i = 0; i < replicated.length; i++)
+        {
+            Node@ node = replicated[i];
+            if (!node.replicated){
+                log.Info("Skip " + node.name);
+                continue;
+            }
+            log.Info("Remove from " + node.name);
+            // scripts
+            Component@[]@ scripts = node.GetComponents("ScriptInstance");
+            for (uint j = 0; j < scripts.length; j++)
+            {
+                Component@ script = scripts[j];
+                script.enabled = false;
+            }
+            // physics
+            if (node.HasComponent("RigidBody")) node.GetComponent("RigidBody").enabled = false;
+            if (node.HasComponent("CollisionShape")) node.GetComponent("CollisionShape").enabled = false;
+        }
+        // Camera
+        VariantMap edata;
+        edata["Mode"] = CAM_MODE_SELECT;
+        SendEvent("RequestCamMode", edata);
     }
 
 }
