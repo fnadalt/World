@@ -50,7 +50,10 @@ class StateWorld : State
         if (mode == WRLD_MODE_LOCAL || mode == WRLD_MODE_SERVER)
         {
             SetupScene(true);
-            if (mode == WRLD_MODE_LOCAL) SetupViewports(true);
+            //~ if (mode == WRLD_MODE_LOCAL)
+            {
+                SetupViewports(true);
+            }
             SubscribeToEvent(scene_, "SceneUpdate", "HandleSceneUpdate");
         }
         //
@@ -195,8 +198,7 @@ class StateWorld : State
                     VariantMap edata;
                     edata["RigType"] = CAM_RIG_FREE;
                     SendEvent("RequestCamRig", edata);
-                    // Disable camera?
-                    cameraNode.enabled = false;
+
                 }
                 else if (mode == WRLD_MODE_LOCAL)
                 {
@@ -308,12 +310,30 @@ class StateWorld : State
             // Set camera position
             Node@ camDrv = scene_.GetChild("CameraDriver");
             if (camDrv !is null) {
-                cameraNode.position = camDrv.worldPosition;
-                cameraNode.rotation = camDrv.worldRotation;
+                cameraNode.worldPosition = camDrv.worldPosition;
+                cameraNode.worldRotation = camDrv.worldRotation;
             }
         } else {
             if (renderer.numViewports == 1) renderer.viewports[1] = null;
             offsceenRenderPath = null;
+        }
+    }
+
+    // Disable scripting and physics from node. Useful after loading nodes over network on client side.
+    void DisableScriptingAndPhysics(Node@ node, bool replicatedOnly = true)
+    {
+        if (replicatedOnly && !node.replicated) return;
+        if (node.HasComponent("ScriptInstance"))
+        {
+            log.Info("Disable scripting on " + node.name);
+            Component@[]@ scripts = node.GetComponents("ScriptInstance");
+            for (uint i = 0; i < scripts.length; i++) scripts[i].enabled = false;
+        }
+        if (node.HasComponent("RigidBody"))
+        {
+            log.Info("Disable physics on " + node.name);
+            node.GetComponent("RigidBody").enabled = false;
+            if (node.HasComponent("CollisionShape")) node.GetComponent("CollisionShape").enabled = false;
         }
     }
 
@@ -444,6 +464,8 @@ class StateWorld : State
 
     void HandleKeyDown(StringHash eventType, VariantMap& eventData)
     {
+        if(console.visible) return;
+        //
         int key = eventData["Key"].GetInt();
         // ESC
         if (key == KEY_ESCAPE)
@@ -469,6 +491,12 @@ class StateWorld : State
             HandleBtnSelectReleased();
             ShowMessage("Select", 1.5f);
         }
+        // Test node grabbing
+        else if (key == KEY_T)
+        {
+            TestNodeGrabbing();
+        }
+
     }
 
     void HandleSceneUpdate(StringHash eventType, VariantMap& eventData)
@@ -824,39 +852,26 @@ class StateWorld : State
         SubscribeToEvent(scene_, "SceneUpdate", "HandleSceneUpdate");
         // Disable scripts and physics
         log.Info("Remove physics and scripting from replicated nodes:");
-        Node@[]@ replicated = scene_.GetChildrenWithScript(true);
-        for (uint i = 0; i < replicated.length; i++)
+        Node@[]@ children = scene_.GetChildren(false);
+        for (uint i = 0; i < children.length; i++)
         {
-            Node@ node = replicated[i];
-            if (!node.replicated){
-                log.Info("Skip " + node.name);
-                continue;
-            }
-            log.Info("Disable script from " + node.name);
-            // scripts
-            Component@[]@ scripts = node.GetComponents("ScriptInstance");
-            for (uint j = 0; j < scripts.length; j++)
-            {
-                Component@ script = scripts[j];
-                script.enabled = false;
-            }
-        }
-        replicated = scene_.GetChildrenWithComponent("RigidBody");
-        for (uint i = 0; i < replicated.length; i++)
-        {
-            Node@ node = replicated[i];
-            if (!node.replicated){
-                log.Info("Skip " + node.name);
-                continue;
-            }
-            log.Info("Disable physics from " + node.name);
-            node.GetComponent("RigidBody").enabled = false;
-            if (node.HasComponent("CollisionShape")) node.GetComponent("CollisionShape").enabled = false;
+            DisableScriptingAndPhysics(children[i], true);
         }
         // Camera
         VariantMap edata;
         edata["Mode"] = CAM_MODE_SELECT;
         SendEvent("RequestCamMode", edata);
+    }
+
+    void TestNodeGrabbing()
+    {
+        log.Info("TestNodeGrabbing()");
+        Node@ man = scene_.GetChild("Man");
+        Node@ hand = man.GetChild("hand.R", true);
+        Node@ stick = scene_.GetChild("Stick");
+        stick.position = Vector3::ZERO;
+        cast<RigidBody>(stick.GetComponent("RigidBody")).kinematic = true;
+        hand.AddChild(stick);
     }
 
 }

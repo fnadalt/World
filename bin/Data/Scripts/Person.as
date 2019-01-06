@@ -255,22 +255,26 @@ class Person : ScriptObject
                 {
                     // Pick
                     grabbedNode = collBodies[i].node;
-                    collBodies[i].enabled = false;
+                    //~ collBodies[i].enabled = false;
+                    collBodies[i].kinematic = true;
                     break;
                 }
             }
-            grabbedNode.parent = handNode;
+            handNode.AddChild(grabbedNode);
             grabbedNode.position = Vector3::ZERO;
             grabbedNode.rotation = Quaternion(0.0f, 0.0f, 0.0f);
         }
         else
         // Drop
         {
-            grabbedNode.parent = scene;
-            grabbedNode.position += Vector3::FORWARD * 2.0f;
-            grabbedNode.rotation = Quaternion(0.0f, 0.0f, 0.0f);
+            Vector3 wPos = grabbedNode.worldPosition;
+            Quaternion wRot = grabbedNode.worldRotation;
+            scene.AddChild(grabbedNode);
+            grabbedNode.worldPosition = wPos;
+            grabbedNode.worldRotation = wRot;
             RigidBody@ grabbedBody = cast<RigidBody>(grabbedNode.GetComponent("RigidBody"));
-            grabbedBody.enabled = true;
+            //~ grabbedBody.enabled = true;
+            grabbedBody.kinematic = false;
             grabbedNode = null;
         }
     }
