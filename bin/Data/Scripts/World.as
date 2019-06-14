@@ -502,7 +502,7 @@ class StateWorld : State
     void HandleSceneUpdate(StringHash eventType, VariantMap& eventData)
     {
 
-        float timeStep = eventData["timeStep"].GetFloat();
+        float timeStep = eventData["TimeStep"].GetFloat();
 
         // Local and client code
         if (mode == WRLD_MODE_LOCAL || mode == WRLD_MODE_CLIENT)
@@ -552,7 +552,7 @@ class StateWorld : State
                 _dummyControls.Set(CTRL_ACTION, input.keyDown[KEY_TAB]);
                 _dummyControls.Set(CTRL_PICK, input.keyDown[KEY_CTRL]);
                 if (input.keyDown[KEY_Q])
-                    _dummyControls.yaw = _curControls.yaw - 120.0f * timeStep;
+					_dummyControls.yaw = _curControls.yaw - 120.0f * timeStep;
                 if (input.keyDown[KEY_E])
                     _dummyControls.yaw = _curControls.yaw + 120.0f * timeStep;
                 //
